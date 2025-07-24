@@ -1,0 +1,18 @@
+# Core dependencies for DOCX to Image processing
+Pillow>=8.0.0              # Image processing and manipulation
+beautifulsoup4>=4.9.0      # HTML parsing
+imgkit>=1.2.0              # HTML to image conversion
+mammoth>=1.4.0             # DOCX to HTML conversion
+markdown>=3.3.0            # Markdown processing
+pylatexenc>=2.10           # LaTeX to text conversion
+
+# Note: This script also requires external dependencies:
+# 1. Pandoc - Install from https://pandoc.org/installing.html
+# 2. wkhtmltopdf - Required by imgkit, install from https://wkhtmltopdf.org/downloads.html
+#    On Windows: Download and install wkhtmltopdf
+#    On Ubuntu/Debian: sudo apt-get install wkhtmltopdf
+#    On macOS: brew install wkhtmltopdf
+
+# Font files (optional but recommended for better text rendering):
+# - DejaVu fonts for better Unicode support
+# - Place font files in dejavu-fonts-ttf-2.37/ttf/ directory relative to the script
