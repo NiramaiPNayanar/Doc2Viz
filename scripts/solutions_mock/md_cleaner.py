@@ -1,18 +1,35 @@
 import re
+def fix_linebreaks(text):
+    lines = text.split('\n')
+    fixed_lines = []
+    buffer = ''
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if buffer:
+                fixed_lines.append(buffer.strip())
+                buffer = ''
+            fixed_lines.append('')
+        elif re.search(r'[.!?]["\')\]]*$', buffer.strip()):
+            fixed_lines.append(buffer.strip())
+            buffer = stripped
+        else:
+            buffer = (buffer + ' ' + stripped).strip()
+    if buffer:
+        fixed_lines.append(buffer.strip())
+    return '\n'.join(fixed_lines)
 
 def remove_markdown_tables(text):
     pattern = re.compile(
-        r"""
-        ^\s*-{5,}.*\n                         # Top horizontal rule (at least 5 dashes)
-        (?:
-            (?:^\s*\*\*[^\n]+\*\*\s+[^\n]+\n)+  # Lines with bolded label + spacing + values
-            (?:^\s*\n)*                         # Optional blank lines between rows
-        )+
-        ^\s*-{5,}.*\n                         # Bottom horizontal rule
-        """,
+        r'''
+        ^\s*-{5,}.*\n           # Match top dashed line
+        (?:.*\n)*?              # Match everything (non-greedy)
+        ^\s*-{5,}.*\n           # Match bottom dashed line
+        ''',
         re.MULTILINE | re.VERBOSE
     )
     return pattern.sub('', text)
+
 
 import logging
 from pylatexenc.latex2text import LatexNodes2Text
@@ -592,6 +609,7 @@ def clean_markdown_content(md_content, process_latex=True, process_underlines=Tr
     
     # Clean up extra spaces
     # md_content = re.sub(r'\s{2,}', ' ', md_content)
+    md_content = fix_linebreaks(md_content)
     
     md_content = md_content.strip()
 
