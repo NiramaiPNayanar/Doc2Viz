@@ -9,7 +9,7 @@ If you're seeing errors like "Python was not found", it means Python is not inst
 ### Option 1: Install Python from Official Website (Recommended)
 
 1. **Download Python**:
-   - Go to https://python.org/downloads/
+   - Go to https://python.org/downloads/ 
    - Download Python 3.8 or newer for Windows
    - **IMPORTANT**: During installation, check "Add Python to PATH"
 
